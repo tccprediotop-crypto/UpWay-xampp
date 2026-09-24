@@ -84,62 +84,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 renderizarInicioPagina(
     'Bootstrap da administracao',
     'Fluxo publico para criar a primeira conta ADMIN do condominio. Depois disso, novos acessos passam a ser gerenciados internamente.',
-    ['ativo' => 'cadastro_porteiro']
+    ['ativo' => 'cadastro_porteiro', 'mostrar_navegacao' => false]
 );
 ?>
-<div class="row g-4">
-    <div class="col-lg-5">
-        <section class="surface-card h-100">
-            <div class="card-label">Governanca de acesso</div>
-            <h2 class="section-title">Primeira conta administrativa</h2>
-            <p class="soft-muted">
-                Este formulario existe apenas para o bootstrap inicial do UpWay. A primeira conta criada aqui
-                recebe o perfil ADMIN e passa a controlar a criacao, edicao e exclusao das demais contas operacionais.
-            </p>
-            <div class="divider-soft"></div>
-            <span class="status-pill <?= $modoBootstrap ? 'status-success' : 'status-warning'; ?>">
-                <?= $modoBootstrap ? 'Bootstrap disponivel' : 'Bootstrap encerrado'; ?>
-            </span>
-        </section>
-    </div>
-    <div class="col-lg-7">
-        <section class="surface-card form-shell h-100">
-            <?php if (!$podeCadastrar): ?>
-                <h2 class="section-title">Cadastro publico indisponivel</h2>
+<div class="row justify-content-center">
+    <div class="col-lg-7 col-xl-6">
+        <?php if (!$podeCadastrar): ?>
+            <div class="text-center mb-4">
+                <h2 class="auth-title">Cadastro publico indisponivel</h2>
+                <p class="soft-muted mb-0">Ja existe pelo menos uma conta operacional ativa no UpWay.</p>
+            </div>
+            <section class="surface-card text-center">
                 <p class="soft-muted">
-                    Ja existe pelo menos uma conta operacional ativa no UpWay. Use o login para acessar a area interna.
+                    Use o login para acessar a area interna e gerenciar a equipe por la.
                 </p>
-                <a href="login.php" class="btn btn-dark btn-pill">Ir para o login</a>
-            <?php else: ?>
-                <h2 class="section-title">Criar conta admin</h2>
+                <a href="login.php" class="btn btn-uw px-5">Ir para o login</a>
+            </section>
+        <?php else: ?>
+            <div class="text-center mb-4">
+                <div class="auth-seal"><i class="bi bi-box-seam"></i></div>
+                <h2 class="auth-title">Criar conta admin</h2>
+                <p class="soft-muted mb-1">A primeira conta recebe perfil ADMIN e passa a controlar a equipe.</p>
+                <span class="status-pill status-success">Bootstrap disponivel</span>
+            </div>
+            <section class="form-shell">
                 <form method="post" class="row g-3">
                     <div class="col-12">
                         <label for="nome" class="form-label fw-semibold">Nome completo</label>
-                        <input type="text" class="form-control" id="nome" name="nome" required>
+                        <div class="input-icon">
+                            <i class="bi bi-person-badge"></i>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do administrador" required>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label for="email" class="form-label fw-semibold">E-mail</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="input-icon">
+                            <i class="bi bi-envelope"></i>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="admin@condominio.com" required>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label for="telefone" class="form-label fw-semibold">Telefone</label>
-                        <input type="text" class="form-control" id="telefone" name="telefone">
+                        <div class="input-icon">
+                            <i class="bi bi-telephone"></i>
+                            <input type="text" class="form-control" id="telefone" name="telefone" placeholder="(11) 99999-9999">
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label for="senha" class="form-label fw-semibold">Senha</label>
-                        <input type="password" class="form-control" id="senha" name="senha" required>
+                        <div class="input-icon">
+                            <i class="bi bi-lock"></i>
+                            <input type="password" class="form-control" id="senha" name="senha" required>
+                            <button type="button" class="pw-toggle" data-target="senha" aria-label="Mostrar senha">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label for="confirmacao_senha" class="form-label fw-semibold">Confirmar senha</label>
-                        <input type="password" class="form-control" id="confirmacao_senha" name="confirmacao_senha" required>
+                        <div class="input-icon">
+                            <i class="bi bi-lock"></i>
+                            <input type="password" class="form-control" id="confirmacao_senha" name="confirmacao_senha" required>
+                            <button type="button" class="pw-toggle" data-target="confirmacao_senha" aria-label="Mostrar senha">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-12 d-grid d-sm-flex gap-2">
-                        <button type="submit" class="btn btn-dark btn-pill px-4">Salvar conta admin</button>
-                        <a href="login.php" class="btn btn-outline-dark btn-pill">Voltar</a>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-uw w-100">Salvar conta admin</button>
                     </div>
                 </form>
-            <?php endif; ?>
-        </section>
+                <div class="auth-foot">
+                    Voltar para o <a href="login.php">login</a>
+                </div>
+            </section>
+        <?php endif; ?>
     </div>
 </div>
 <?php renderizarFimPagina(); ?>

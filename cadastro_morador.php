@@ -143,64 +143,91 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 renderizarInicioPagina(
     'Cadastro público do morador',
     'Moradores podem criar o próprio acesso e informar torre e apartamento. Se a unidade não existir, o sistema cria tudo automaticamente.',
-    ['ativo' => 'cadastro_morador']
+    ['ativo' => 'cadastro_morador', 'mostrar_navegacao' => false]
 );
 ?>
-<div class="row g-4">
-    <div class="col-lg-5">
-        <section class="surface-card h-100">
-            <div class="card-label">Experiência simplificada</div>
-            <h2 class="section-title">Onboarding leve para o condomínio</h2>
-            <p class="soft-muted">
-                O fluxo foi desenhado para eliminar cadastro manual de estrutura.
-                O morador só informa torre e apartamento e o UpWay resolve o vínculo de unidade.
-            </p>
-            <div class="divider-soft"></div>
-            <ul class="list-clean soft-muted">
-                <li>Torre e apartamento são normalizados automaticamente.</li>
-                <li>Senha salva apenas como hash irreversível no banco.</li>
-                <li>Pronto para receber notificações in-app, WhatsApp e Push.</li>
-            </ul>
-        </section>
-    </div>
-    <div class="col-lg-7">
-        <section class="surface-card form-shell h-100">
-            <h2 class="section-title">Criar conta de morador</h2>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-7">
+        <div class="text-center mb-4">
+            <div class="auth-seal"><i class="bi bi-box-seam"></i></div>
+            <h2 class="auth-title">Criar sua conta</h2>
+            <p class="soft-muted mb-0">Preencha os dados abaixo para continuar</p>
+        </div>
+
+        <section class="form-shell">
             <form method="post" class="row g-3">
                 <div class="col-12">
                     <label for="nome" class="form-label fw-semibold">Nome completo</label>
-                    <input type="text" class="form-control" id="nome" name="nome" required>
+                    <div class="input-icon">
+                        <i class="bi bi-person"></i>
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome completo" required>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="email" class="form-label fw-semibold">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <div class="input-icon">
+                        <i class="bi bi-envelope"></i>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="nome@condominio.com" required>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="telefone" class="form-label fw-semibold">Telefone / WhatsApp</label>
-                    <input type="text" class="form-control" id="telefone" name="telefone" placeholder="(11) 99999-9999">
+                    <div class="input-icon">
+                        <i class="bi bi-telephone"></i>
+                        <input type="text" class="form-control" id="telefone" name="telefone" placeholder="(11) 99999-9999">
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="torre" class="form-label fw-semibold">Torre</label>
-                    <input type="text" class="form-control" id="torre" name="torre" placeholder="Torre A" required>
+                    <div class="input-icon">
+                        <i class="bi bi-building"></i>
+                        <input type="text" class="form-control" id="torre" name="torre" placeholder="Torre A" required>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="apartamento" class="form-label fw-semibold">Apartamento</label>
-                    <input type="text" class="form-control" id="apartamento" name="apartamento" placeholder="1204" required>
+                    <div class="input-icon">
+                        <i class="bi bi-house-door"></i>
+                        <input type="text" class="form-control" id="apartamento" name="apartamento" placeholder="1204" required>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="senha" class="form-label fw-semibold">Senha</label>
-                    <input type="password" class="form-control" id="senha" name="senha" required>
+                    <div class="input-icon">
+                        <i class="bi bi-lock"></i>
+                        <input type="password" class="form-control" id="senha" name="senha" placeholder="Mínimo de 8 caracteres" required>
+                        <button type="button" class="pw-toggle" data-target="senha" aria-label="Mostrar senha">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="confirmacao_senha" class="form-label fw-semibold">Confirmar senha</label>
-                    <input type="password" class="form-control" id="confirmacao_senha" name="confirmacao_senha" required>
+                    <div class="input-icon">
+                        <i class="bi bi-lock"></i>
+                        <input type="password" class="form-control" id="confirmacao_senha" name="confirmacao_senha" placeholder="Repita a senha" required>
+                        <button type="button" class="pw-toggle" data-target="confirmacao_senha" aria-label="Mostrar senha">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-12 d-grid d-sm-flex gap-2">
-                    <button type="submit" class="btn btn-dark btn-pill px-4">Cadastrar morador</button>
-                    <a href="login.php" class="btn btn-outline-dark btn-pill">Voltar ao login</a>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-uw w-100">Cadastrar</button>
                 </div>
             </form>
+            <div class="auth-foot">
+                Já tem uma conta? <a href="login.php">Entrar</a>
+            </div>
         </section>
+    </div>
+</div>
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-8">
+        <ul class="list-clean soft-muted security-notes">
+            <li><i class="bi bi-magic me-1"></i> Torre e apartamento são criados automaticamente</li>
+            <li><i class="bi bi-key me-1"></i> Senha salva apenas como hash irreversível</li>
+            <li><i class="bi bi-bell me-1"></i> Pronto para notificações in-app, WhatsApp e Push</li>
+        </ul>
     </div>
 </div>
 <?php renderizarFimPagina(); ?>

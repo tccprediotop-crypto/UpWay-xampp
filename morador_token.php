@@ -187,7 +187,7 @@ $encomendasAtivas = $stmt->fetchAll();
 renderizarInicioPagina(
     'Central de tokens',
     'Gere ou reaproveite um token temporário para apresentar na retirada. O QR representa o payload seguro da entrega.',
-    ['ativo' => 'token']
+    ['ativo' => 'token', 'compacto' => true]
 );
 ?>
 <div class="row g-4">

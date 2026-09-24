@@ -375,7 +375,7 @@ $contasAtivas = count(
 renderizarInicioPagina(
     'Gestao de acessos da portaria',
     'A primeira conta do sistema e ADMIN. Ela cria novos porteiros, enquanto cada porteiro comum pode editar ou excluir apenas a propria conta.',
-    ['ativo' => 'porteiros']
+    ['ativo' => 'porteiros', 'compacto' => true]
 );
 ?>
 <div class="row g-4 mb-4">
@@ -438,59 +438,80 @@ renderizarInicioPagina(
 
                 <div class="col-12">
                     <label for="nome" class="form-label fw-semibold">Nome completo</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="nome"
-                        name="nome"
-                        value="<?= e($contaEdicao['full_name'] ?? ''); ?>"
-                        required
-                    >
+                    <div class="input-icon">
+                        <i class="bi bi-person"></i>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="nome"
+                            name="nome"
+                            value="<?= e($contaEdicao['full_name'] ?? ''); ?>"
+                            required
+                        >
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="email" class="form-label fw-semibold">E-mail</label>
-                    <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        name="email"
-                        value="<?= e($contaEdicao['email'] ?? ''); ?>"
-                        required
-                    >
+                    <div class="input-icon">
+                        <i class="bi bi-envelope"></i>
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            name="email"
+                            value="<?= e($contaEdicao['email'] ?? ''); ?>"
+                            required
+                        >
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="telefone" class="form-label fw-semibold">Telefone</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="telefone"
-                        name="telefone"
-                        value="<?= e($contaEdicao['phone'] ?? ''); ?>"
-                    >
+                    <div class="input-icon">
+                        <i class="bi bi-telephone"></i>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="telefone"
+                            name="telefone"
+                            value="<?= e($contaEdicao['phone'] ?? ''); ?>"
+                        >
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="senha" class="form-label fw-semibold">
                         <?= $usuarioEhAdmin && !$modoEdicao ? 'Senha' : 'Nova senha'; ?>
                     </label>
-                    <input
-                        type="password"
-                        class="form-control"
-                        id="senha"
-                        name="senha"
-                        <?= $usuarioEhAdmin && !$modoEdicao ? 'required' : ''; ?>
-                    >
+                    <div class="input-icon">
+                        <i class="bi bi-lock"></i>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="senha"
+                            name="senha"
+                            <?= $usuarioEhAdmin && !$modoEdicao ? 'required' : ''; ?>
+                        >
+                        <button type="button" class="pw-toggle" data-target="senha" aria-label="Mostrar senha">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="confirmacao_senha" class="form-label fw-semibold">
                         <?= $usuarioEhAdmin && !$modoEdicao ? 'Confirmar senha' : 'Confirmar nova senha'; ?>
                     </label>
-                    <input
-                        type="password"
-                        class="form-control"
-                        id="confirmacao_senha"
-                        name="confirmacao_senha"
-                        <?= $usuarioEhAdmin && !$modoEdicao ? 'required' : ''; ?>
-                    >
+                    <div class="input-icon">
+                        <i class="bi bi-lock"></i>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="confirmacao_senha"
+                            name="confirmacao_senha"
+                            <?= $usuarioEhAdmin && !$modoEdicao ? 'required' : ''; ?>
+                        >
+                        <button type="button" class="pw-toggle" data-target="confirmacao_senha" aria-label="Mostrar senha">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="col-12">
                     <div class="form-check">

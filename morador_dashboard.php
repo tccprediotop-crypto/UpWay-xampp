@@ -57,7 +57,7 @@ $notificacoes = $stmtNotificacoes->fetchAll();
 renderizarInicioPagina(
     'Dashboard do morador',
     'Uma visão clara das encomendas aguardando retirada, seus tokens ativos e os alertas mais recentes da portaria.',
-    ['ativo' => 'dashboard']
+    ['ativo' => 'dashboard', 'compacto' => true]
 );
 ?>
 <div class="row g-4 mb-4">

@@ -143,7 +143,7 @@ $filaAtiva = $stmt->fetchAll();
 renderizarInicioPagina(
     'Validação de retirada',
     'Fluxo seguro com scanner de QR por câmera, fallback manual e transação atômica para evitar reutilização do mesmo token.',
-    ['ativo' => 'retirada']
+    ['ativo' => 'retirada', 'compacto' => true]
 );
 ?>
 <div class="row g-4 mb-4">
@@ -174,15 +174,18 @@ renderizarInicioPagina(
             <form method="post" id="tokenForm" class="row g-3">
                 <div class="col-12">
                     <label for="token" class="form-label fw-semibold">Token da encomenda</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="token"
-                        name="token"
-                        placeholder="Ex.: AB23CD45"
-                        maxlength="16"
-                        required
-                    >
+                    <div class="input-icon">
+                        <i class="bi bi-qr-code-scan"></i>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="token"
+                            name="token"
+                            placeholder="Ex.: AB23CD45"
+                            maxlength="16"
+                            required
+                        >
+                    </div>
                 </div>
                 <div class="col-12 d-grid gap-2">
                     <button type="submit" class="btn btn-dark btn-pill">Validar retirada</button>

@@ -17,73 +17,71 @@ $totalOperadores = (int) $pdo
 renderizarInicioPagina(
     'Login unificado',
     'Acesse a operação da portaria ou a experiência do morador com autenticação segura e limitação de tentativas.',
-    ['ativo' => 'login']
+    ['ativo' => 'login', 'mostrar_navegacao' => false]
 );
 ?>
-<div class="row g-4 align-items-stretch">
-    <div class="col-lg-5">
-        <section class="surface-card h-100">
-            <div class="eyebrow">Acesso seguro</div>
-            <h2 class="section-title">Pronto para operar sem papel</h2>
-            <p class="soft-muted">
-                O UpWay substitui livros de portaria por uma jornada digital clara:
-                encomenda recebida, morador notificado, token emitido e retirada validada.
-            </p>
-            <div class="divider-soft"></div>
-            <ul class="list-clean soft-muted">
-                <li>Prepared Statements em toda consulta sensível.</li>
-                <li>Senha protegida com <code>password_hash()</code> e <code>password_verify()</code>.</li>
-                <li>Bloqueio temporário após múltiplas tentativas inválidas.</li>
-            </ul>
-            <div class="divider-soft"></div>
-            <div class="d-flex flex-wrap gap-2">
-                <a class="btn btn-dark btn-pill" href="cadastro_morador.php">Sou morador</a>
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-xl-5">
+        <div class="text-center mb-4">
+            <div class="auth-seal"><i class="bi bi-box-seam"></i></div>
+            <h2 class="auth-title">Bem-vindo de volta!</h2>
+            <p class="soft-muted mb-0">Faça login para continuar</p>
+        </div>
+
+        <section class="form-shell">
+            <form method="post" action="autenticar.php">
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold">E-mail</label>
+                    <div class="input-icon">
+                        <i class="bi bi-envelope"></i>
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            name="email"
+                            placeholder="nome@condominio.com"
+                            required
+                        >
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="senha" class="form-label fw-semibold">Senha</label>
+                    <div class="input-icon">
+                        <i class="bi bi-lock"></i>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="senha"
+                            name="senha"
+                            placeholder="Sua senha segura"
+                            required
+                        >
+                        <button type="button" class="pw-toggle" data-target="senha" aria-label="Mostrar senha">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-uw w-100">Entrar</button>
+            </form>
+
+            <div class="auth-foot">
+                Ainda não tem uma conta? <a href="cadastro_morador.php">Cadastre-se</a>
                 <?php if ($totalOperadores === 0): ?>
-                    <a class="btn btn-primary-soft btn-pill" href="cadastro_porteiro.php">Criar conta admin</a>
+                    <div class="mt-2">
+                        <a class="fw-semibold" href="cadastro_porteiro.php">Criar a primeira conta administrativa</a>
+                    </div>
                 <?php endif; ?>
             </div>
         </section>
     </div>
-    <div class="col-lg-7">
-        <section class="surface-card form-shell h-100">
-            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
-                <div>
-                    <div class="card-label">Entrar no sistema</div>
-                    <h2 class="section-title mb-1">Bem-vindo ao painel UpWay</h2>
-                    <p class="soft-muted mb-0">Use o e-mail cadastrado e sua senha para continuar.</p>
-                </div>
-                <span class="status-pill status-soft">XAMPP / PHP 8.x / MySQL</span>
-            </div>
-
-            <form method="post" action="autenticar.php" class="row g-3">
-                <div class="col-12">
-                    <label for="email" class="form-label fw-semibold">E-mail</label>
-                    <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        name="email"
-                        placeholder="nome@condominio.com"
-                        required
-                    >
-                </div>
-                <div class="col-12">
-                    <label for="senha" class="form-label fw-semibold">Senha</label>
-                    <input
-                        type="password"
-                        class="form-control"
-                        id="senha"
-                        name="senha"
-                        placeholder="Sua senha segura"
-                        required
-                    >
-                </div>
-                <div class="col-12 d-grid d-sm-flex gap-2">
-                    <button type="submit" class="btn btn-dark btn-pill px-4">Entrar</button>
-                    <a href="cadastro_morador.php" class="btn btn-outline-dark btn-pill">Cadastrar morador</a>
-                </div>
-            </form>
-        </section>
+</div>
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-8">
+        <ul class="list-clean soft-muted security-notes">
+            <li><i class="bi bi-shield-lock me-1"></i> Prepared Statements em toda consulta sensível</li>
+            <li><i class="bi bi-key me-1"></i> Senha protegida com <code>password_hash()</code></li>
+            <li><i class="bi bi-hourglass-split me-1"></i> Bloqueio temporário após tentativas inválidas</li>
+        </ul>
     </div>
 </div>
 <?php renderizarFimPagina(); ?>

@@ -65,8 +65,8 @@ $proporcaoTokens = $metricas['total_encomendas'] > 0
 
 renderizarInicioPagina(
     'Overview da portaria',
-    'Painel inspirado em dashboards minimalistas: visão rápida do volume operacional, tokens ativos e fila de entregas.',
-    ['ativo' => 'dashboard']
+    'Visão rápida do volume operacional, tokens ativos e fila de entregas do condomínio.',
+    ['ativo' => 'dashboard', 'compacto' => true]
 );
 ?>
 <div class="row g-4 mb-4">

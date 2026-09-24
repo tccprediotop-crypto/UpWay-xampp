@@ -116,7 +116,7 @@ $moradores = $stmt->fetchAll();
 renderizarInicioPagina(
     'Nova encomenda',
     'Cadastro operacional da portaria com notificação imediata e transição automática para o estado NOTIFIED.',
-    ['ativo' => 'nova_encomenda']
+    ['ativo' => 'nova_encomenda', 'compacto' => true]
 );
 ?>
 <div class="row g-4">
@@ -147,11 +147,17 @@ renderizarInicioPagina(
                 </div>
                 <div class="col-md-6">
                     <label for="carrier" class="form-label fw-semibold">Transportadora</label>
-                    <input type="text" class="form-control" id="carrier" name="carrier" placeholder="Mercado Livre, Correios..." required>
+                    <div class="input-icon">
+                        <i class="bi bi-truck"></i>
+                        <input type="text" class="form-control" id="carrier" name="carrier" placeholder="Mercado Livre, Correios..." required>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="tracking_code" class="form-label fw-semibold">Código de rastreio</label>
-                    <input type="text" class="form-control" id="tracking_code" name="tracking_code" placeholder="Opcional">
+                    <div class="input-icon">
+                        <i class="bi bi-upc-scan"></i>
+                        <input type="text" class="form-control" id="tracking_code" name="tracking_code" placeholder="Opcional">
+                    </div>
                 </div>
                 <div class="col-12">
                     <label for="descricao" class="form-label fw-semibold">Descrição</label>
