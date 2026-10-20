@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}Overview da portaria{% endblock %}
+{% block subtitle %}Visão rápida do volume operacional, tokens ativos e fila de entregas do condomínio.{% endblock %}
+{% block content %}
+<div class="row g-4 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <section class="metric-card">
+            <div class="card-label">Pendentes de retirada</div>
+            <div class="metric-value">{{ metricas.pendentes_retirada }}</div>
+            <div class="metric-helper">Encomendas aguardando o morador na portaria.</div>
+        </section>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <section class="metric-card">
+            <div class="card-label">Moradores cadastrados</div>
+            <div class="metric-value">{{ metricas.moradores }}</div>
+            <div class="metric-helper">Base ativa pronta para receber notificações.</div>
+        </section>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <section class="metric-card">
+            <div class="card-label">Pacotes recebidos hoje</div>
+            <div class="metric-value">{{ metricas.recebidas_hoje }}</div>
+            <div class="metric-helper">Entradas registradas desde 00:00.</div>
+        </section>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <section class="metric-card">
+            <div class="card-label">Tokens ativos</div>
+            <div class="metric-value">{{ metricas.tokens_ativos }}</div>
+            <div class="metric-helper">Moradores a caminho para retirar.</div>
+        </section>
+    </div>
+</div>
+<div class="row g-4 mb-4">
+    <div class="col-xl-5">
+        <section class="surface-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <div class="card-label">Ritmo de retirada</div>
+                    <h2 class="section-title mb-0">Tokenização em andamento</h2>
+                </div>
+                <a href="/porteiro/retirada" class="btn btn-primary-soft btn-pill">Validar retirada</a>
+            </div>
+            <div class="donut-indicator" style="--progress: {{ proporcao_tokens }}deg;">
+                <div class="text-center">
+                    <strong>{{ metricas.tokens_ativos }}</strong>
+                    <span class="soft-muted">ativos</span>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-xl-7">
+        <section class="surface-card h-100">
+            <div class="card-label">Distribuição por status</div>
+            <h2 class="section-title">Máquina de estados do UpWay</h2>
+            <div class="mini-stat-list">
+                {% for status, total in status_brutos.items() %}
+                {% set percentual = 0 %}
+                {% if metricas.total_encomendas > 0 %}
+                {% set percentual = (total / metricas.total_encomendas * 100) | round %}
+                {% endif %}
+                <div class="mini-stat-item">
+                    <div>
+                        <div class="fw-semibold">{{ formatar_status_pacote(status) }}</div>
+                        <small class="soft-muted">{{ total }} registro(s)</small>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: {{ percentual }}%;"></div>
+                    </div>
+                    <div class="fw-semibold">{{ percentual }}%</div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</div>
+<section class="surface-card">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+        <div>
+            <div class="card-label">Últimas movimentações</div>
+            <h2 class="section-title mb-0">Encomendas cadastradas recentemente</h2>
+        </div>
+        <a href="/porteiro/nova_encomenda" class="btn btn-dark btn-pill">Nova encomenda</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-soft align-middle">
+            <thead>
+                <tr>
+                    <th>Morador</th>
+                    <th>Unidade</th>
+                    <th>Transportadora</th>
+                    <th>Rastreio</th>
+                    <th>Status</th>
+                    <th>Recebimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if ultimas_encomendas %}
+                {% for e in ultimas_encomendas %}
+                <tr>
+                    <td>{{ e.resident_name }}</td>
+                    <td>{{ (e.tower_name or '') ~ ' ' ~ (e.unit_number or '') }}</td>
+                    <td>{{ e.carrier }}</td>
+                    <td>{{ e.tracking_code or 'Sem código' }}</td>
+                    <td><span class="status-pill {{ classe_status_pacote(e.status) }}">{{ formatar_status_pacote(e.status) }}</span></td>
+                    <td>{{ e.received_at }}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr><td colspan="6" class="soft-muted">Nenhuma encomenda cadastrada ainda.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
